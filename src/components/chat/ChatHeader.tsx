@@ -3,6 +3,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SearchIcon from '@mui/icons-material/Search';
+import SendIcon from '@mui/icons-material/Send';
 import './ChatHeader.scss';
 
 const ChatHeader = () => {
@@ -21,8 +22,9 @@ const ChatHeader = () => {
         <div className='chatHeaderSearch'>
           <input type='text' placeholder='検索' />
           <SearchIcon />
-          <HelpIcon />
         </div>
+        <SendIcon />
+        <HelpIcon />
       </div>
     </div>
   );
