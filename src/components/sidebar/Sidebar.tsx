@@ -4,6 +4,7 @@ import HeadphonesIcon from '@mui/icons-material/Headphones';
 import MicIcon from '@mui/icons-material/Mic';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { addDoc, collection } from 'firebase/firestore';
+import { useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { auth, db } from '../../firebase';
 import useCollection from '../../hooks/useCollection';
@@ -13,6 +14,7 @@ import SidebarChannel from './SidebarChannel';
 const Sidebar = () => {
   const user = useAppSelector((state) => state.user.user);
   const { documents: channels } = useCollection('channels');
+  const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
 
   const addChannel = async () => {
     let channelName: string | null = prompt('新しいチャンネルを作成します。');
@@ -64,7 +66,14 @@ const Sidebar = () => {
           </div>
           <div className='sidebarFooter'>
             <div className='sidebarAccount'>
-              <img src={user?.photo} alt='' onClick={() => auth.signOut()} />
+              <img
+                src={user?.photo}
+                alt=''
+                onClick={() => auth.signOut()}
+                onMouseMove={() => setIsTooltipVisible(true)}
+                onMouseLeave={() => setIsTooltipVisible(false)}
+              />
+              {isTooltipVisible && <div className='tooltip'>ログアウト</div>}
               <div className='accountName'>
                 <h4>{user?.displayName}</h4>
                 <span>#{user?.uid.substring(0, 4)}</span>
