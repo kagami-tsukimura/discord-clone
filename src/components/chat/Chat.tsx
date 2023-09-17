@@ -9,6 +9,8 @@ import {
   addDoc,
   collection,
   onSnapshot,
+  orderBy,
+  query,
   serverTimestamp,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
@@ -43,7 +45,9 @@ const Chat = () => {
       'messages'
     );
 
-    onSnapshot(collectionRef, (snapshot) => {
+    const collectionRefOrderBy = query(collectionRef, orderBy('timestamp'));
+
+    onSnapshot(collectionRefOrderBy, (snapshot) => {
       let results: Messages[] = [];
       snapshot.docs.forEach((doc) => {
         results.push({
