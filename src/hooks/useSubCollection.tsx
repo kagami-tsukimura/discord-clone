@@ -48,6 +48,7 @@ const useSubCollection = (
       });
       setSubDocuments(results);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [channelId]);
   return { subDocuments };
 };

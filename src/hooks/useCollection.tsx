@@ -28,6 +28,7 @@ const useCollection = (data: string) => {
       });
       setDocuments(channelsResults);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return { documents };
 };
