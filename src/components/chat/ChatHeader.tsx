@@ -26,7 +26,7 @@ const ChatHeader = (props: Props) => {
         <PushPinIcon />
         <PeopleAltIcon />
         <div className='chatHeaderSearch'>
-          <input type='text' placeholder='検索' />
+          <input type='text' placeholder='dummy search...' />
           <SearchIcon />
         </div>
         <SendIcon />
