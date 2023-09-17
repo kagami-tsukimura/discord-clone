@@ -14,7 +14,7 @@ const Sidebar = () => {
           <img src='./discordIcon.png' alt='' />
         </div>
         <div className='serverIcon'>
-          <img src='./discordIcon.png' alt='' />
+          <img src='./logo192.png' alt='' />
         </div>
       </div>
       <div className='sidebarRight'>
