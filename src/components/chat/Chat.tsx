@@ -5,7 +5,6 @@ import GifIcon from '@mui/icons-material/Gif';
 import {
   CollectionReference,
   DocumentData,
-  DocumentReference,
   Timestamp,
   addDoc,
   collection,
@@ -70,15 +69,12 @@ const Chat = () => {
       'messages'
     );
 
-    const docRef: DocumentReference<DocumentData> = await addDoc(
-      collectionRef,
-      {
-        message: inputText,
-        timestamp: serverTimestamp(),
-        user: user,
-      }
-    );
-    console.log(docRef);
+    await addDoc(collectionRef, {
+      timestamp: serverTimestamp(),
+      message: inputText,
+      user: user,
+    });
+    setInputText('');
   };
 
   return (
