@@ -3,6 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import MicIcon from '@mui/icons-material/Mic';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { auth } from '../../firebase';
 import './Sidebar.scss';
 import SidebarChannel from './SidebarChannel';
 
@@ -39,7 +40,7 @@ const Sidebar = () => {
           </div>
           <div className='sidebarFooter'>
             <div className='sidebarAccount'>
-              <img src='./icon.png' alt='' />
+              <img src='./icon.png' alt='' onClick={() => auth.signOut()} />
               <div className='accountName'>
                 <h4>Kagami</h4>
                 <span>#8162</span>
