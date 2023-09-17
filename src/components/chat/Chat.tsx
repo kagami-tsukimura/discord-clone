@@ -106,13 +106,14 @@ const Chat = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setInputText(e.target.value)
             }
+            value={inputText}
           />
           <button
             type='submit'
             className='chatInputButton'
-            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-              sendMessage(e)
-            }
+            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+              sendMessage(e);
+            }}
           >
             送信
           </button>
