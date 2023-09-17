@@ -3,7 +3,42 @@
   flex-direction: column;
   flex-grow: 1;
   background-color: #31353a;
+  height: 100vh;
 }
+
 .chatMessage {
   flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.chatInput {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #474b53;
+  border-radius: 5px;
+  margin: 20px;
+  color: #d3d3d3;
+
+  form {
+    flex-grow: 1;
+    input {
+      padding: 15px;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: large;
+      width: 100%;
+    }
+    .chatInputButton {
+      display: none;
+    }
+  }
+  .chatInputIcons {
+    .MuiSvgIcon-root {
+      padding: 5px;
+    }
+  }
 }
