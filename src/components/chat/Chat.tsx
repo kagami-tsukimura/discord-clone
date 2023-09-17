@@ -54,7 +54,6 @@ const Chat = () => {
         });
       });
       setMessages(results);
-      console.log(results);
     });
   }, [channelId]);
 
@@ -88,8 +87,14 @@ const Chat = () => {
       <ChatHeader channelName={channelName} />
       {/* chatMessage */}
       <div className='chatMessage'>
-        <ChatMessage />
-        <ChatMessage />
+        {messages.map((message, index) => (
+          <ChatMessage
+            key={index}
+            message={message.message}
+            timestamp={message.timestamp}
+            user={message.user}
+          />
+        ))}
       </div>
       {/* chatInput */}
       <div className='chatInput'>
