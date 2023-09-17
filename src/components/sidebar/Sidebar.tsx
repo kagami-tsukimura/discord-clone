@@ -3,10 +3,41 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import MicIcon from '@mui/icons-material/Mic';
 import SettingsIcon from '@mui/icons-material/Settings';
+import {
+  DocumentData,
+  collection,
+  onSnapshot,
+  query,
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../app/hooks';
+import { auth, db } from '../../firebase';
 import './Sidebar.scss';
 import SidebarChannel from './SidebarChannel';
 
+interface Channel {
+  id: string;
+  channel: DocumentData;
+}
+
 const Sidebar = () => {
+  const [channels, setChannels] = useState<Channel[]>([]);
+  const user = useAppSelector((state) => state.user);
+  const q = query(collection(db, 'channels'));
+
+  useEffect(() => {
+    onSnapshot(q, (querySnapshot) => {
+      const channelsResults: Channel[] = [];
+      querySnapshot.docs.forEach((doc) => {
+        channelsResults.push({
+          id: doc.id,
+          channel: doc.data(),
+        });
+      });
+      setChannels(channelsResults);
+    });
+  }, []);
+
   return (
     <div className='sidebar'>
       <div className='sidebarLeft'>
@@ -34,15 +65,16 @@ const Sidebar = () => {
           </div>
 
           <div className='sidebarChannelList'>
-            <SidebarChannel />
-            <SidebarChannel />
+            {channels.map((channel) => (
+              <SidebarChannel channel={channel} id={channel.id} />
+            ))}
           </div>
           <div className='sidebarFooter'>
             <div className='sidebarAccount'>
-              <img src='./icon.png' alt='' />
+              <img src={user?.photo} alt='' onClick={() => auth.signOut()} />
               <div className='accountName'>
-                <h4>Kagami</h4>
-                <span>#8162</span>
+                <h4>{user?.displayName}</h4>
+                <span>#{user?.uid.substring(0, 4)}</span>
               </div>
             </div>
             <div className='sidebarVoice'>
