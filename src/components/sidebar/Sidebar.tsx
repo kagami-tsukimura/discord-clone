@@ -11,7 +11,7 @@ import './Sidebar.scss';
 import SidebarChannel from './SidebarChannel';
 
 const Sidebar = () => {
-  const userProfile = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.user);
   const { documents: channels } = useCollection('channels');
 
   const addChannel = async () => {
@@ -64,14 +64,10 @@ const Sidebar = () => {
           </div>
           <div className='sidebarFooter'>
             <div className='sidebarAccount'>
-              <img
-                src={userProfile?.photo}
-                alt=''
-                onClick={() => auth.signOut()}
-              />
+              <img src={user?.photo} alt='' onClick={() => auth.signOut()} />
               <div className='accountName'>
-                <h4>{userProfile?.displayName}</h4>
-                <span>#{userProfile?.uid.substring(0, 4)}</span>
+                <h4>{user?.displayName}</h4>
+                <span>#{user?.uid.substring(0, 4)}</span>
               </div>
             </div>
             <div className='sidebarVoice'>

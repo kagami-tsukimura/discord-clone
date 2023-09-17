@@ -1,6 +1,5 @@
 import { Avatar } from '@mui/material';
 import { Timestamp } from 'firebase/firestore';
-import { useAppSelector } from '../../app/hooks';
 import './ChatMessage.scss';
 
 type Props = {
@@ -16,17 +15,18 @@ type Props = {
 
 const ChatMessage = (props: Props) => {
   const { message, timestamp, user } = props;
-  const userProfile = useAppSelector((state) => state.user.user);
 
   return (
     <div className='message'>
       <Avatar />
       <div className='messageInfo'>
         <h4>
-          {userProfile?.displayName}
-          <span className='messageTimestamp'>2023/09/17</span>
+          {user?.displayName}
+          <span className='messageTimestamp'>
+            {new Date(timestamp.toDate()).toLocaleString()}
+          </span>
         </h4>
-        <p>メッセージ本文</p>
+        <p>{message}</p>
       </div>
     </div>
   );
