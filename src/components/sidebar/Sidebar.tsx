@@ -3,40 +3,26 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import MicIcon from '@mui/icons-material/Mic';
 import SettingsIcon from '@mui/icons-material/Settings';
-import {
-  DocumentData,
-  collection,
-  onSnapshot,
-  query,
-} from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
 import { useAppSelector } from '../../app/hooks';
 import { auth, db } from '../../firebase';
+import useCollection from '../../hooks/useCollection';
 import './Sidebar.scss';
 import SidebarChannel from './SidebarChannel';
 
-interface Channel {
-  id: string;
-  channel: DocumentData;
-}
-
 const Sidebar = () => {
-  const [channels, setChannels] = useState<Channel[]>([]);
-  const user = useAppSelector((state) => state.user);
-  const q = query(collection(db, 'channels'));
+  const user = useAppSelector((state) => state.user.user);
+  const { documents: channels } = useCollection('channels');
 
-  useEffect(() => {
-    onSnapshot(q, (querySnapshot) => {
-      const channelsResults: Channel[] = [];
-      querySnapshot.docs.forEach((doc) => {
-        channelsResults.push({
-          id: doc.id,
-          channel: doc.data(),
-        });
+  const addChannel = async () => {
+    let channelName: string | null = prompt('新しいチャンネルを作成します。');
+
+    if (channelName) {
+      await addDoc(collection(db, 'channels'), {
+        channelName: channelName,
       });
-      setChannels(channelsResults);
-    });
-  }, []);
+    }
+  };
 
   return (
     <div className='sidebar'>
@@ -57,16 +43,23 @@ const Sidebar = () => {
           <div className='sidebarChannelsHeader'>
             <div className='sidebarHeader'>
               <ExpandMoreIcon />
-              <h4>tempチャンネル</h4>
+              <h4>Channels</h4>
             </div>
             <div>
-              <AddIcon className='sidebarAddChannel' />
+              <AddIcon
+                className='sidebarAddChannel'
+                onClick={() => addChannel()}
+              />
             </div>
           </div>
 
           <div className='sidebarChannelList'>
             {channels.map((channel) => (
-              <SidebarChannel channel={channel} id={channel.id} />
+              <SidebarChannel
+                channel={channel}
+                id={channel.id}
+                key={channel.id}
+              />
             ))}
           </div>
           <div className='sidebarFooter'>

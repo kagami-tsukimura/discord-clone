@@ -2,7 +2,7 @@ import { Avatar } from '@mui/material';
 import { useAppSelector } from '../../app/hooks';
 import './ChatMessage.scss';
 const ChatMessage = () => {
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state.user.user);
 
   return (
     <div className='message'>
